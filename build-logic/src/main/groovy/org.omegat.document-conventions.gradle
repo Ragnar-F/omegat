@@ -65,39 +65,39 @@ manualLangsProvider.get().each { lang ->
     }
 
     def copyJs = tasks.register("copyJs${lang.capitalize()}", Copy) {
-        description 'Copy CSS and JS files to tmp'
+        description = 'Copy CSS and JS files to tmp'
         into(layout.buildDirectory.dir("tmp/manual/${lang}/js/"))
         from fileTree(dir: "${documentRootDir}/docbook/js")
     }
 
     def copyCss = tasks.register("copyCss${lang.capitalize()}", Copy) {
-        description 'Copy CSS and JS files to tmp'
+        description = 'Copy CSS and JS files to tmp'
         into(layout.buildDirectory.dir("tmp/manual/${lang}/css/"))
         from fileTree(dir: "${documentRootDir}/docbook/css")
         from file("${documentRootDir}/style/omegat.css")
     }
 
     def copyImages = tasks.register("copyImages${lang.capitalize()}", Copy) {
-        description 'Copy Images to tmp'
+        description = 'Copy Images to tmp'
         into layout.buildDirectory.dir("tmp/manual/${lang}/images/")
         from fileTree(dir: layout.projectDirectory.dir("${documentRootDir}/manual/${lang}/images/"), include: "*.png")
         from layout.projectDirectory.file("images/OmegaT.svg")
     }
 
     def copyCssTarget = tasks.register("copyCssTarget${lang.capitalize()}", Copy) {
-        description 'Copy CSS to target'
+        description = 'Copy CSS to target'
         from layout.projectDirectory.file("${documentRootDir}/style/omegat.css")
         into(layout.buildDirectory.dir("docs/manual/${lang}/css/"))
     }
 
     def copyJsTarget = tasks.register("copyJsTarget${lang.capitalize()}", Copy) {
-        description 'Copy JS files to target'
+        description = 'Copy JS files to target'
         from fileTree(dir: "${documentRootDir}/docbook/js", includes: ['*.js'])
         into(layout.buildDirectory.dir("docs/manual/${lang}/js/"))
     }
 
     def copyImagesTarget = tasks.register("copyImagesTarget${lang.capitalize()}", Copy) {
-        description 'Copy Images to target'
+        description = 'Copy Images to target'
         into layout.buildDirectory.dir("docs/manual/${lang}/images/")
         from fileTree(dir: layout.projectDirectory.dir("${documentRootDir}/manual/${lang}/images/"), include: "*.png")
         from layout.projectDirectory.file("images/OmegaT.svg")
@@ -154,7 +154,7 @@ manualLangsProvider.get().each { lang ->
         ])
         outputs.cacheIf { false }
         dependsOn(whcHeader, whcToc, whcIndex, copyImagesTarget, copyCssTarget, copyJsTarget)
-        group('documentation')
+        group = 'documentation'
     }
     assemble.dependsOn buildDocumentTask
     manualHtmls.dependsOn buildDocumentTask
@@ -223,7 +223,7 @@ def firstStepLangsProvider = providers.gradleProperty("org.omegat.firstStepLangs
         .map { it.split(',') }
 firstStepLangsProvider.get().each { lang ->
     def firstStepsHtmlFinally = tasks.register("firstSteps${lang.capitalize()}Finally", Copy) {
-        description 'Copy CSS files to target'
+        description = 'Copy CSS files to target'
         from layout.projectDirectory.file("src_docs/style/greeting.css")
         into layout.buildDirectory.dir("docs/greetings/${lang}/")
     }
